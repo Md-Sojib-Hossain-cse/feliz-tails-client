@@ -8,9 +8,9 @@ const CategoryCard = ({img , title , description}) => {
             </a>
             <div className="flex flex-col gap-2 items-start justify-center">
                 <a href="#">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+                    <h5 className="text-xl font-semibold tracking-tight text-[#F03D5E] dark:text-white">{title}</h5>
                 </a>
-                <p className="text-sm md:text-base text-gray-900 dark:text-white">{description}</p>
+                <p className="text-sm md:text-base text-gray-700 dark:text-white">{description}</p>
             </div>
         </div>
     );
