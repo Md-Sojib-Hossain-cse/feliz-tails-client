@@ -5,12 +5,12 @@ const CallToAction = () => {
 
 
     return (
-        <section className="mt-6 md:mt-8 lg:mt-12 xl:mt-16">
+        <section className="mt-6 md:mt-8 lg:mt-12 xl:mt-16 px-4 md:px-6 lg:px-12 xl:px-24">
             <SectionTitle
                 heading="Ready to Make a Difference?"
                 subHeading="Begin your adoption journey give a pet a home!"
             ></SectionTitle>
-            <div className="album-container px-4 md:px-6 lg:px-12 xl:px-24">
+            <div className="album-container">
                 <img src="https://i.ibb.co/0fF0v9M/9.jpg" alt="" className="portrait" />
                 <img src="https://i.ibb.co/TTthKrd/8.jpg" alt="" className="square" />
                 <img src="https://i.ibb.co/61ZTv12/19.jpg" alt="" className="square" />
