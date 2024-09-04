@@ -55,7 +55,7 @@ const Testimonials = () => {
     };
 
     return (
-        <div className='mt-6 md:mt-8 lg:mt-12 xl:mt-16'>
+        <section className='mt-6 md:mt-8 lg:mt-12 xl:mt-16'>
             <SectionTitle
                 heading='Happy Tails'
                 subHeading='Hear from adopters about their happy experiences.'
@@ -67,8 +67,7 @@ const Testimonials = () => {
                     }
                 </Slider>
             </div>
-
-        </div>
+        </section>
     );
 };
 

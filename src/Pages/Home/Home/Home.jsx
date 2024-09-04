@@ -4,6 +4,7 @@ import Banner from "../Banner/Banner";
 import CallToAction from "../CallToAction/CallToAction";
 import Category from "../Category/Category";
 import Testimonials from "../Testimonials/Testimonials";
+import Faq from "../FAQ/Faq";
 
 const Home = () => {
     return (
@@ -16,6 +17,7 @@ const Home = () => {
             <CallToAction></CallToAction>
             <AboutUs></AboutUs>
             <Testimonials></Testimonials>
+            <Faq></Faq>
         </div>
     );
 };
