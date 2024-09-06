@@ -4,18 +4,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SectionTitle from '@/Components/SectionTitle/SectionTitle';
 import { useEffect, useState } from "react";
-import { axiosPublic } from "@/hooks/useAxiosPublic";
 import TestimonialCard from "./TestimonialCard/TestimonialCard";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const Testimonials = () => {
     const [reviews , setReviews] = useState([]);
+    const axiosPublic = useAxiosPublic();
 
     useEffect(() => {
         axiosPublic.get("/reviews")
             .then(res => {
                 setReviews(res.data);
             })
-    } , [])
+    } , [axiosPublic])
 
     const settings = {
         dots: true,
