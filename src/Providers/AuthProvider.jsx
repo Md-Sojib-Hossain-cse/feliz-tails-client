@@ -1,15 +1,21 @@
 import app from "@/firebase/firebase.config";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, FacebookAuthProvider, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { GoogleAuthProvider } from "firebase/auth";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const auth = getAuth(app);
+    const axiosPublic = useAxiosPublic();
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
 
 
     const createUser = (email, password) => {
@@ -32,15 +38,31 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    //other sign in methods 
+    const googleSignIn = () => {
+        return signInWithPopup(auth , googleProvider)
+    }
+
+    const facebookSignIn = () => {
+        return signInWithPopup(auth , facebookProvider)
+    }
+
     //user observer
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-                setLoading(false);
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            const userEmail = currentUser?.email || user?.email;
+            const loggedUser = {email : userEmail};
+            setLoading(false);
+            if (currentUser) {
+                axiosPublic.post("/jwt" , loggedUser)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             } else {
-                setUser(null);
-                setLoading(false);
                 console.log(user);
             }
         });
@@ -56,6 +78,8 @@ const AuthProvider = ({ children }) => {
         signIn , 
         updateUser,
         logOut,
+        googleSignIn,
+        facebookSignIn,
     }
 
     return <AuthContext.Provider value={authInfo}>
