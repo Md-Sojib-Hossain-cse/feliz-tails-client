@@ -40,10 +40,12 @@ const AuthProvider = ({ children }) => {
 
     //other sign in methods 
     const googleSignIn = () => {
+        setLoading(true);
         return signInWithPopup(auth , googleProvider)
     }
 
     const facebookSignIn = () => {
+        setLoading(true);
         return signInWithPopup(auth , facebookProvider)
     }
 
@@ -69,11 +71,12 @@ const AuthProvider = ({ children }) => {
         return () => {
             unsubscribe();
         }
-    }, [auth])
+    }, [auth, axiosPublic, user])
 
     const authInfo = {
         user,
         loading ,
+        setLoading,
         createUser,
         signIn , 
         updateUser,

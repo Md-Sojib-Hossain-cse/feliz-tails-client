@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_imageHosingApiKey;
@@ -15,7 +15,8 @@ const Register = () => {
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const axiosPublic = useAxiosPublic();
-    const { createUser, updateUser, googleSignIn, facebookSignIn } = useAuth();
+    const { createUser, updateUser, googleSignIn, facebookSignIn , setLoading } = useAuth();
+    const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
         googleSignIn()
@@ -125,6 +126,8 @@ const Register = () => {
                                         });
                                         setError("");
                                         reset();
+                                        setLoading(false);
+                                        navigate("/");
                                     })
                                     .catch(error => {
                                         setError(error.message)
@@ -146,7 +149,9 @@ const Register = () => {
             <Helmet>
                 <title>Feliz Tails - Register</title>
             </Helmet>
-            <img src="https://i.ibb.co/N2kfV48/dogfacing.gif" alt="dog" className="mx-auto relative -top-20" />
+            <div className="relative min-h-64 h-full">
+                <img src="https://i.ibb.co/N2kfV48/dogfacing.gif" alt="dog" className="absolute bottom-0 left-1/2 -translate-x-1/2" />
+            </div>
             <div className="bg-gray-100 rounded-lg p-4 md:p-6 lg:p-8 space-y-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full max-w-lg mx-auto">
                     <h3 className="text-xl lg:text-2xl font-semibold text-center mb-4 md:mb-6">Join the Family</h3>

@@ -9,7 +9,6 @@ const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
     const { user, loading, logOut } = useAuth();
-
     const toggleDropdown = () => {
         if (!isDropdownOpen) {
             setIsNavOpen(false);
