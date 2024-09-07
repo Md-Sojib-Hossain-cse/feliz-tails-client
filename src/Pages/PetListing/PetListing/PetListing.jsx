@@ -6,6 +6,7 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { InView } from 'react-intersection-observer';
 import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "@/Components/SectionTitle/SectionTitle";
+import "./PetListing.css";
 
 const PetListing = () => {
     const [category, setCategory] = useState("");
@@ -59,10 +60,12 @@ const PetListing = () => {
             <Helmet>
                 <title>Feliz Tails - Pet Listing</title>
             </Helmet>
-            <SectionTitle
-                heading="Discover Your Future Companion"
-                subHeading="Browse through our adorable pets ready to find their forever home."
-            ></SectionTitle>
+            <div className="pet-listing-bg py-6 lg:py-8 mb-6 md:mb-8 lg:mb-12">
+                <SectionTitle
+                    heading="Discover Your Future Companion"
+                    subHeading="Browse through our adorable pets ready to find their forever home."
+                ></SectionTitle>
+            </div>
             <div>
                 <div className="flex flex-col-reverse md:flex-row gap-4 justify-end items-end md:justify-between md:items-center mb-6 md:mb-8">
                     <div className="flex space-x-3 justify-end md:justify-center items-center">
