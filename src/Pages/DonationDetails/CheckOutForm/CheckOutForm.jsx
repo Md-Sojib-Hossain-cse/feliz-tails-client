@@ -6,16 +6,22 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import useAuth from "@/hooks/useAuth";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import moment from "moment";
+import Swal from "sweetalert2";
 
 
 const CheckOutForm = ({ campaignDetails }) => {
     const [error, setError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
-    const [transactionId , setTransactionId] = useState("");
+    const [transactionId, setTransactionId] = useState("");
+    const [restrictDonationAmount , setRestrictDonationAmount] = useState(1);
+    const { _id } = campaignDetails;
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const { maxDonationAmount, donatedAmount } = campaignDetails;
     const remainingAmount = parseInt(maxDonationAmount) - (parseInt(donatedAmount) || 0);
 
@@ -23,6 +29,10 @@ const CheckOutForm = ({ campaignDetails }) => {
     const handlePaymentIntent = (e) => {
         e.preventDefault();
         const donationAmount = e.target.value || 1;
+        setRestrictDonationAmount(donationAmount)
+        if(restrictDonationAmount <= 0 || restrictDonationAmount > 1000){
+            return;
+        }
         axiosSecure.post("/create-payment-intent", { donationAmount: donationAmount })
             .then(res => {
                 console.log(res.data.clientSecret)
@@ -72,20 +82,43 @@ const CheckOutForm = ({ campaignDetails }) => {
         }
         else {
             console.log("payment intent", paymentIntent)
-            if(paymentIntent.status === "succeeded"){
+            if (paymentIntent.status === "succeeded") {
                 setTransactionId(paymentIntent.id)
+                const donationDetails = {
+                    transactionId: paymentIntent.id,
+                    amount: parseInt(paymentIntent.amount / 100),
+                    campaignId: _id,
+                    donatorName: user?.displayName || "anonymous",
+                    donatorEmail: user?.email || "anonymous",
+                    date: moment().format('L')
+                }
+                axiosPublic.patch(`/donation-campaign/${_id}`, donationDetails)
+                    .then(res => {
+                        if (res.data.modifiedCount > 0) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Thanks for your donation.",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             }
         }
     }
 
-    console.log(remainingAmount)
     return (
         <div>
             <DialogTitle className="w-full">
                 <div className="w-full">
                     <label htmlFor="donateAmount">Donation Amount :</label>
-                    <input onChange={handlePaymentIntent} type="number" name='donateAmount' id='donateAmount' placeholder='' min="1" max={remainingAmount} className="w-full rounded-sm" defaultValue={remainingAmount} />
+                    <input onChange={handlePaymentIntent} type="number" name='donateAmount' id='donateAmount' placeholder='' min="1" minLength="1" maxLength="4" max={remainingAmount} className="w-full rounded-sm" defaultValue={remainingAmount} />
                 </div>
+                <p className="text-green-600"><small>One Time Donation limit is $1 to $1000</small></p>
             </DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-3 py-6">
                 <CardElement
@@ -105,7 +138,7 @@ const CheckOutForm = ({ campaignDetails }) => {
                     }}
                 />
                 <DialogFooter>
-                    <Button type="submit" disabled={!stripe || !clientSecret} variant="destructive">Pay</Button>
+                    <Button type="submit" disabled={!stripe || !clientSecret || restrictDonationAmount > 1000 || restrictDonationAmount <= 0} variant="destructive">Pay</Button>
                 </DialogFooter>
             </form>
             {error ? <p className="text-red-600 text-sm">{error}</p> : ""}
