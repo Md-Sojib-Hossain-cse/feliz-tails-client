@@ -63,7 +63,6 @@ const PetDetails = () => {
                 </div>
             </div>
         </section>
-
     );
 };
 

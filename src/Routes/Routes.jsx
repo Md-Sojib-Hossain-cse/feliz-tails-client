@@ -8,6 +8,7 @@ import DonationCampaigns from "@/Pages/DonationCampaigns/DonationCampaigns/Donat
 import Register from "@/Pages/Register/Register";
 import PetDetails from "@/Pages/PetDetails/PetDetails";
 import Login from "@/Pages/Login/Login";
+import DonationDetails from "@/Pages/DonationDetails/DonationDetails";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path : "/donationCampaigns",
                 element : <DonationCampaigns></DonationCampaigns>,
+            },
+            {
+                path : "/donationCampaign/:id",
+                element : <DonationDetails></DonationDetails>,
             },
             {
                 path : "/register",

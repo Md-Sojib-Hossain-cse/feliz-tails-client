@@ -28,6 +28,7 @@ const DonationCampaigns = () => {
         },
     })
 
+    console.log(data)
     useEffect(() => {
         refetch();
     }, [refetch, page])
