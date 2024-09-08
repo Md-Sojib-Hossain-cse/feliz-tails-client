@@ -10,16 +10,25 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import DonationCampaignModal from "./DonationCampaignModal/DonationCampaignModal";
+import DonationCampaignCard from "../DonationCampaigns/DonationCampaignCard.jsx/DonationCampaignCard";
 
 
 const DonationDetails = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
 
-    const { data = {} } = useQuery({
+    const { data = {} , refetch} = useQuery({
         queryKey: ["donation-campaign"],
         queryFn: async () => {
             const res = await axiosPublic.get(`/donation-campaign/${id}`);
+            return res.data;
+        }
+    })
+
+    const { data: recommendedDonation = [] } = useQuery({
+        queryKey: ['recommended-donation'],
+        queryFn: async () => {
+            const res = await axiosPublic.get("/donation-campaign?page=1&limit=3")
             return res.data;
         }
     })
@@ -55,9 +64,17 @@ const DonationDetails = () => {
                     </TableBody>
                 </Table>
                 <div className="flex justify-end items-center py-4 lg:py-6">
-                    <DonationCampaignModal key={data?._id} campaignDetails={data}></DonationCampaignModal>
+                    <DonationCampaignModal key={data?._id} campaignDetails={data} refetch={refetch}></DonationCampaignModal>
                 </div>
             </div>
+            <section className="py-6 lg:py-8">
+                <h3 className="text-center font-medium text-xl lg:text-2xl mb-6">More Ongoing Campaigns..</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    {
+                        recommendedDonation.map(donationData => <DonationCampaignCard key={donationData._id} pets={donationData} refetch={refetch}></DonationCampaignCard>)
+                    }
+                </div>
+            </section>
         </section>
     );
 };

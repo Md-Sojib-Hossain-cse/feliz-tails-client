@@ -9,14 +9,16 @@ import useAuth from "@/hooks/useAuth";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
-const CheckOutForm = ({ campaignDetails }) => {
+const CheckOutForm = ({ campaignDetails , refetch}) => {
     const [error, setError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [transactionId, setTransactionId] = useState("");
     const [restrictDonationAmount , setRestrictDonationAmount] = useState(1);
     const { _id } = campaignDetails;
+    const navigate = useNavigate();
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
@@ -103,6 +105,8 @@ const CheckOutForm = ({ campaignDetails }) => {
                                 timer: 1500
                             });
                         }
+                        refetch();
+                        navigate(`/donationCampaign/${_id}`)
                     })
                     .catch(err => {
                         console.log(err)
@@ -149,6 +153,7 @@ const CheckOutForm = ({ campaignDetails }) => {
 
 CheckOutForm.propTypes = {
     campaignDetails: PropTypes.object,
+    refetch : PropTypes.func,
 }
 
 export default CheckOutForm;

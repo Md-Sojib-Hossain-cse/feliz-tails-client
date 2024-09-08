@@ -12,7 +12,7 @@ import { Elements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_publishableKeyPaymentGateway);
 
-const DonationCampaignModal = ({ campaignDetails }) => {
+const DonationCampaignModal = ({ campaignDetails , refetch}) => {
     const { user } = useAuth();
 
     return (
@@ -22,7 +22,7 @@ const DonationCampaignModal = ({ campaignDetails }) => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <Elements stripe={stripePromise}>
-                    <CheckOutForm campaignDetails={campaignDetails} />
+                    <CheckOutForm campaignDetails={campaignDetails} refetch={refetch}/>
                 </Elements>
             </DialogContent>
         </Dialog>
@@ -30,6 +30,7 @@ const DonationCampaignModal = ({ campaignDetails }) => {
 };
 DonationCampaignModal.propTypes = {
     campaignDetails: PropTypes.object,
+    refetch : PropTypes.func,
 }
 
 export default DonationCampaignModal;

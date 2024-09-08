@@ -2,10 +2,13 @@ import { Button } from "@/Components/ui/button";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const DonationCampaignCard = ({ pets }) => {
+const DonationCampaignCard = ({ pets , refetch }) => {
     const { _id, petName, petImage, maxDonationAmount , donatedAmount , createdAt} = pets;
-    console.log(createdAt.split("T")[0])
     const donatedAmountTill = donatedAmount || 0;
+    if(refetch){
+        refetch();
+    }
+
     return (
         <div className="w-full relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="h-64">
@@ -30,6 +33,7 @@ const DonationCampaignCard = ({ pets }) => {
 
 DonationCampaignCard.propTypes = {
     pets: PropTypes.object,
+    refetch : PropTypes.func,
 }
 
 export default DonationCampaignCard;

@@ -4,6 +4,8 @@ import { FaBars } from "react-icons/fa6";
 import "./Navbar.css";
 import useAuth from "@/hooks/useAuth";
 import Swal from "sweetalert2";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -55,7 +57,7 @@ const Navbar = () => {
                     <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Feliz<span className="text-[#F03D5E]">Tails</span></p>
                 </Link>
                 {
-                    loading ? <p>Loading...</p> : user ? <div className="flex relative items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    loading ? <Skeleton count={1} height={1} width={1} circle /> : user ? <div className="flex relative items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                         <button
                             type="button"
                             className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -129,7 +131,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                         {
-                            loading ? <p>loading...</p> : !user ? <li>
+                            loading ? <Skeleton count={1} height={32} width={32} circle /> : !user ? <li>
                                 <NavLink
                                     to="/login"
                                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"

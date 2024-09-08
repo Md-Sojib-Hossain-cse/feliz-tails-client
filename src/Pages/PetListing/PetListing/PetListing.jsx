@@ -7,6 +7,8 @@ import { InView } from 'react-intersection-observer';
 import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "@/Components/SectionTitle/SectionTitle";
 import "./PetListing.css";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const PetListing = () => {
     const [category, setCategory] = useState("");
@@ -16,10 +18,11 @@ const PetListing = () => {
     const axiosPublic = useAxiosPublic();
 
     const {
-        data,
+        data = [],
         status,
         isLoading,
         isPending,
+        isFetching,
         refetch,
     } = useQuery({
         queryKey: ['pets-data'],
@@ -50,10 +53,6 @@ const PetListing = () => {
     useEffect(() => {
         refetch();
     }, [refetch, category, searchBy, page])
-
-
-    if (status === 'loading' || isLoading || isPending) return <p>Loading...</p>;
-    if (status === 'error') return <p>Error fetching data</p>;
 
     return (
         <section className="my-6 md:my-8 lg:my-12 xl:my-16 px-4 md:px-6 lg:px-12 xl:px-24">
@@ -86,18 +85,59 @@ const PetListing = () => {
                     </form>
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {
-                    data.map(pet => <PetListingCard key={pet._id} pets={pet}></PetListingCard>)
-                }
-                <InView as="div" onChange={(inView) => {
-                    if (inView) {
-                        setPage(page + 1);
-                        refetch();
-                    }
-                }}>
-                </InView>
-            </div>
+            {
+                status === 'loading' || isLoading || isPending ?
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="bg-gray-50 p-2 rounded-lg">
+                            <Skeleton count={1} height={200} className="mb-2" />
+                            <Skeleton count={1} height={30} width={100} />
+                            <Skeleton count={1} height={30} width={220} />
+                            <Skeleton count={1} height={30} />
+                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} width={120} />
+                        </div>
+                        <div className="bg-gray-50 p-2 rounded-lg">
+                            <Skeleton count={1} height={200} className="mb-2" />
+                            <Skeleton count={1} height={30} width={100} />
+                            <Skeleton count={1} height={30} width={220} />
+                            <Skeleton count={1} height={30} />
+                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} width={120} />
+                        </div>
+                        <div className="bg-gray-50 p-2 rounded-lg">
+                            <Skeleton count={1} height={200} className="mb-2" />
+                            <Skeleton count={1} height={30} width={100} />
+                            <Skeleton count={1} height={30} width={220} />
+                            <Skeleton count={1} height={30} />
+                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} width={120} />
+                        </div>
+                    </div>
+                    : status === 'error'
+                        ? <p className="text-red-600">Something wrong . Cannot load data at this moment.</p>
+                        : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {
+                                data.map(pet => <PetListingCard key={pet._id} pets={pet}></PetListingCard>)
+                            }
+                            {
+                                isFetching ? <div className="bg-gray-50 p-2 rounded-lg">
+                                <Skeleton count={1} height={200} className="mb-2" />
+                                <Skeleton count={1} height={30} width={100} />
+                                <Skeleton count={1} height={30} width={220} />
+                                <Skeleton count={1} height={30} />
+                                <Skeleton count={1} height={30} width={300} className="mb-4" />
+                                <Skeleton count={1} height={30} width={120} />
+                            </div> : ""
+                            }
+                            <InView as="div" onChange={(inView) => {
+                                if (inView) {
+                                    setPage(page + 1);
+                                    refetch();
+                                }
+                            }}>
+                            </InView>
+                        </div>
+            }
         </section>
     );
 };
