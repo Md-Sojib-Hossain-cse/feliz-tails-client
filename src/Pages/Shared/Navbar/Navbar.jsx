@@ -80,7 +80,7 @@ const Navbar = () => {
                                 </div>
                                 <ul className="py-2" aria-labelledby="user-menu-button">
                                     <li>
-                                        <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                        <Link to="/dashboard/userDashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                             Dashboard
                                         </Link>
                                     </li>
@@ -104,7 +104,7 @@ const Navbar = () => {
                         </button>
                     </div> : ""
                 }
-                <div className={`relative items-center md:flex-1 justify-end ${isNavOpen ? 'flex' : 'hidden'} w-full md:flex md:w-auto md:order-1`} id="navbar-user">
+                <div className={`relative items-center md:flex-1 justify-end ${isNavOpen ? 'flex' : 'hidden'} w-full md:flex md:w-auto md:order-1 z-10`} id="navbar-user">
                     <ul className="flex flex-col absolute md:static top-0 right-0 font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                             <NavLink

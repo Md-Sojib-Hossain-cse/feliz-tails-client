@@ -9,6 +9,8 @@ import Register from "@/Pages/Register/Register";
 import PetDetails from "@/Pages/PetDetails/PetDetails";
 import Login from "@/Pages/Login/Login";
 import DonationDetails from "@/Pages/DonationDetails/DonationDetails";
+import Dashboard from "@/Layout/Dashboard";
+import UserDashboard from "@/Pages/UserDashboard/UserDashboard";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +47,16 @@ const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path : "dashboard",
+        element : <Dashboard></Dashboard>,
+        children : [
+            {
+                path : "userDashboard",
+                element : <UserDashboard></UserDashboard>
+            },
+        ]
+    }
 ]);
 
 

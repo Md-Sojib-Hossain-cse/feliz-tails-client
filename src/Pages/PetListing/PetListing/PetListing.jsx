@@ -80,7 +80,7 @@ const PetListing = () => {
                         </select>
                     </div>
                     <form onSubmit={handleSearch} className="flex w-full max-w-sm justify-end items-center space-x-2">
-                        <input type="text" name="search" placeholder="Search here" />
+                        <input type="text" name="search" placeholder="Search here" className="w-full" />
                         <Button type="submit" variant="destructive">Search</Button>
                     </form>
                 </div>
@@ -93,7 +93,7 @@ const PetListing = () => {
                             <Skeleton count={1} height={30} width={100} />
                             <Skeleton count={1} height={30} width={220} />
                             <Skeleton count={1} height={30} />
-                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} className="mb-4" />
                             <Skeleton count={1} height={30} width={120} />
                         </div>
                         <div className="bg-gray-50 p-2 rounded-lg">
@@ -101,7 +101,7 @@ const PetListing = () => {
                             <Skeleton count={1} height={30} width={100} />
                             <Skeleton count={1} height={30} width={220} />
                             <Skeleton count={1} height={30} />
-                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} className="mb-4" />
                             <Skeleton count={1} height={30} width={120} />
                         </div>
                         <div className="bg-gray-50 p-2 rounded-lg">
@@ -109,7 +109,7 @@ const PetListing = () => {
                             <Skeleton count={1} height={30} width={100} />
                             <Skeleton count={1} height={30} width={220} />
                             <Skeleton count={1} height={30} />
-                            <Skeleton count={1} height={30} width={300} className="mb-4" />
+                            <Skeleton count={1} height={30} className="mb-4" />
                             <Skeleton count={1} height={30} width={120} />
                         </div>
                     </div>
@@ -125,7 +125,7 @@ const PetListing = () => {
                                 <Skeleton count={1} height={30} width={100} />
                                 <Skeleton count={1} height={30} width={220} />
                                 <Skeleton count={1} height={30} />
-                                <Skeleton count={1} height={30} width={300} className="mb-4" />
+                                <Skeleton count={1} height={30} className="mb-4" />
                                 <Skeleton count={1} height={30} width={120} />
                             </div> : ""
                             }

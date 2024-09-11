@@ -16,7 +16,7 @@ const DonationCampaigns = () => {
     const [showData, setShowData] = useState([]);
 
     const {
-        data = [],
+        // data = [],
         status,
         isLoading,
         isPending,
@@ -55,7 +55,7 @@ const DonationCampaigns = () => {
                                 <Skeleton count={1} height={30} width={100} />
                                 <Skeleton count={1} height={30} width={220} />
                                 <Skeleton count={1} height={30} />
-                                <Skeleton count={1} height={30} width={300} className="mb-4" />
+                                <Skeleton count={1} height={30} className="mb-4" />
                                 <Skeleton count={1} height={30} width={120} />
                             </div>
                             <div className="bg-gray-50 p-2 rounded-lg">
@@ -63,7 +63,7 @@ const DonationCampaigns = () => {
                                 <Skeleton count={1} height={30} width={100} />
                                 <Skeleton count={1} height={30} width={220} />
                                 <Skeleton count={1} height={30} />
-                                <Skeleton count={1} height={30} width={300} className="mb-4" />
+                                <Skeleton count={1} height={30} className="mb-4" />
                                 <Skeleton count={1} height={30} width={120} />
                             </div>
                             <div className="bg-gray-50 p-2 rounded-lg">
@@ -71,7 +71,7 @@ const DonationCampaigns = () => {
                                 <Skeleton count={1} height={30} width={100} />
                                 <Skeleton count={1} height={30} width={220} />
                                 <Skeleton count={1} height={30} />
-                                <Skeleton count={1} height={30} width={300} className="mb-4" />
+                                <Skeleton count={1} height={30} className="mb-4" />
                                 <Skeleton count={1} height={30} width={120} />
                             </div>
                         </div>
