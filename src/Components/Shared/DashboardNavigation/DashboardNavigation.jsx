@@ -5,11 +5,17 @@ import "../../../CSS/activeNavLinkStyle.css";
 
 const DashboardNavigation = () => {
     return (
-        <NavigationMenu className="basis-1/2 text-right">
+        <NavigationMenu className="text-right text-sm">
             <NavigationMenuList>
                 <NavigationMenuItem className="md:hidden">
                     <NavigationMenuTrigger className="p-4"><FaBars></FaBars></NavigationMenuTrigger>
                     <NavigationMenuContent className="absolute flex flex-col bg-slate-50 dark:bg-slate-800 text-black dark:text-white shadow-lg rounded-sm w-full max-w-sm p-2 right-0">
+                        <NavLink to="/">
+                            <NavigationMenuLink className="font-medium border-b block py-3">Home</NavigationMenuLink>
+                        </NavLink>
+                        <NavLink to="">
+                            <NavigationMenuLink className="font-medium border-b block py-3">Dashboard</NavigationMenuLink>
+                        </NavLink>
                         <NavLink to="addAPet">
                             <NavigationMenuLink className="font-medium border-b block py-3">Add a Pet</NavigationMenuLink>
                         </NavLink>

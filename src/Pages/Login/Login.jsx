@@ -3,13 +3,16 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { signIn, googleSignIn, facebookSignIn } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const path = location?.state?.from || "/";
 
     const handleGoogleSignIn = () => {
         googleSignIn()
@@ -24,6 +27,7 @@ const Login = () => {
                     background: "#FFF",
                     timer: 1000
                 });
+                navigate(path);
             })
             .catch((err) => {
                 setError(err.message);
@@ -43,6 +47,7 @@ const Login = () => {
                     background: "#FFF",
                     timer: 1000
                 });
+                navigate(path);
             })
             .catch((err) => {
                 setError(err.message);
@@ -65,6 +70,7 @@ const Login = () => {
                     timer: 1000
                 });
                 reset();
+                navigate(path);
             })
             .catch((err) => {
                 setError(err.message);

@@ -9,9 +9,12 @@ const Dashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
     return (
         <div className="md:flex grid grid-cols-1 md:grid-cols-4">
-            <div style={{ height: '100%', minHeight: '100vh' }} className="hidden md:flex">
+            <div style={{ height: 'auto' }} className="hidden md:flex">
                 <Sidebar collapsed={collapsed}>
                     <Menu>
+                        <NavLink to="" className="font-medium">
+                            <MenuItem prefix="📊">Dashboard</MenuItem>
+                        </NavLink>
                         <NavLink to="addAPet" className="font-medium">
                             <MenuItem prefix="➕">Add a Pet</MenuItem>
                         </NavLink>
@@ -25,7 +28,7 @@ const Dashboard = () => {
                             <MenuItem prefix="📢">Create Donation Campaign</MenuItem>
                         </NavLink>
                         <NavLink to="myDonationCampaigns" className="font-medium">
-                            <MenuItem prefix="📊">My Donation Campaigns</MenuItem>
+                            <MenuItem prefix="🎯">My Donation Campaigns</MenuItem>
                         </NavLink>
                         <NavLink to="myDonations" className="font-medium">
                             <MenuItem prefix="🙌">My Donations</MenuItem>
@@ -40,26 +43,33 @@ const Dashboard = () => {
                             <img src="https://i.ibb.co/xhR1tDW/logo.png" className="h-8" alt="FelizTails Logo" />
                             <p className="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Feliz<span className="text-[#F03D5E]">Tails</span></p>
                         </Link>
-                        <p className="tracking-widest text-sm -mt-2">Dashboard</p>
+                        <p className="tracking-widest text-sm -mt-2 ml-5">Dashboard</p>
                     </div>
-                    <DashboardNavigation></DashboardNavigation>
+                    <div className="basis-full">
+                        <DashboardNavigation></DashboardNavigation>
+                    </div>
                 </div>
                 <Outlet></Outlet>
             </div>
-            <main style={{ padding: 10 }} className="md:col-span-3 w-full hidden md:block">
+            <main className="md:col-span-3 w-full hidden md:block">
                 <div className="flex justify-between items-center px-5">
-                    <button className="sb-button hidden md:flex" onClick={() => setCollapsed(!collapsed)}>
-                        <FaBars></FaBars>
-                    </button>
-                    <div className="flex flex-col items-center">
-                        <Link to="/" className="flex items-center rtl:space-x-reverse">
+                    <div className="flex gap-6 items-center">
+                        <button className="sb-button hidden md:flex" onClick={() => setCollapsed(!collapsed)}>
+                            <FaBars></FaBars>
+                        </button>
+                        <Link to="/" className="text-lg font-medium hover:bg-gray-100 py-2 px-3 rounded-sm">Home</Link>
+                    </div>
+                    <Link className="flex flex-col items-center">
+                        <div className="flex items-center rtl:space-x-reverse">
                             <img src="https://i.ibb.co/xhR1tDW/logo.png" className="h-8" alt="FelizTails Logo" />
                             <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Feliz<span className="text-[#F03D5E]">Tails</span></p>
-                        </Link>
-                        <p className="tracking-widest">Dashboard</p>
-                    </div>
+                        </div>
+                        <p className="tracking-widest ml-4 -mt-2">Dashboard</p>
+                    </Link>
                 </div>
-                <Outlet></Outlet>
+                <div className="my-2 md:my-3 lg:my-5 xl:my-6">
+                    <Outlet></Outlet>
+                </div>
             </main>
         </div>
     );
