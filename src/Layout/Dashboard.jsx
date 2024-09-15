@@ -50,6 +50,9 @@ const Dashboard = () => {
                                 <NavLink to="users" className="font-medium">
                                     <MenuItem prefix="👩‍👩‍👦">Users</MenuItem>
                                 </NavLink>
+                                <NavLink to="allPets" className="font-medium">
+                                    <MenuItem prefix="🐾">All Pets</MenuItem>
+                                </NavLink>
                             </>
                         }
                     </Menu>

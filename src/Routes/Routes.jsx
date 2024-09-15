@@ -21,6 +21,7 @@ import PetUpdate from "@/Pages/PetUpdate/PetUpdate";
 import EditDonation from "@/Pages/EditDonation/EditDonation";
 import AdminProtectedRoute from "./AdminProtectedRoute/AdminProtectedRoute";
 import Users from "@/Pages/Users/Users";
+import AllPets from "@/Pages/AllPets/AllPets";
 
 const router = createBrowserRouter([
     {
@@ -117,6 +118,12 @@ const router = createBrowserRouter([
                 path : "users",
                 element : <AdminProtectedRoute>
                     <Users></Users>
+                </AdminProtectedRoute>
+            },
+            {
+                path : "allPets",
+                element : <AdminProtectedRoute>
+                    <AllPets></AllPets>
                 </AdminProtectedRoute>
             },
 

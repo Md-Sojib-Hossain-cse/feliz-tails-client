@@ -51,6 +51,9 @@ const DashboardNavigation = () => {
                                 <NavLink to="users">
                                 <NavigationMenuLink className="font-medium border-y block py-3">Users</NavigationMenuLink>
                                 </NavLink>
+                                <NavLink to="allPets">
+                                <NavigationMenuLink className="font-medium border-y block py-3">All Pets</NavigationMenuLink>
+                                </NavLink>
                             </>
                         }
                     </NavigationMenuContent>

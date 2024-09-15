@@ -71,7 +71,6 @@ const Users = () => {
                         }
                     </TableBody>
                 </Table>
-
             </div>
         </div>
     );
