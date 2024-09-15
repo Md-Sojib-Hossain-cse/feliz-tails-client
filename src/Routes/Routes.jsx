@@ -22,6 +22,7 @@ import EditDonation from "@/Pages/EditDonation/EditDonation";
 import AdminProtectedRoute from "./AdminProtectedRoute/AdminProtectedRoute";
 import Users from "@/Pages/Users/Users";
 import AllPets from "@/Pages/AllPets/AllPets";
+import AllDonation from "@/Pages/AllDonations/AllDonation";
 
 const router = createBrowserRouter([
     {
@@ -124,6 +125,12 @@ const router = createBrowserRouter([
                 path : "allPets",
                 element : <AdminProtectedRoute>
                     <AllPets></AllPets>
+                </AdminProtectedRoute>
+            },
+            {
+                path : "allDonations",
+                element : <AdminProtectedRoute>
+                    <AllDonation></AllDonation>
                 </AdminProtectedRoute>
             },
 

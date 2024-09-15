@@ -53,6 +53,9 @@ const Dashboard = () => {
                                 <NavLink to="allPets" className="font-medium">
                                     <MenuItem prefix="🐾">All Pets</MenuItem>
                                 </NavLink>
+                                <NavLink to="allDonations" className="font-medium">
+                                    <MenuItem prefix="🎁">All Donations</MenuItem>
+                                </NavLink>
                             </>
                         }
                     </Menu>
