@@ -121,13 +121,13 @@ const PetListing = () => {
                             }
                             {
                                 isFetching ? <div className="bg-gray-50 p-2 rounded-lg">
-                                <Skeleton count={1} height={200} className="mb-2" />
-                                <Skeleton count={1} height={30} width={100} />
-                                <Skeleton count={1} height={30} width={220} />
-                                <Skeleton count={1} height={30} />
-                                <Skeleton count={1} height={30} className="mb-4" />
-                                <Skeleton count={1} height={30} width={120} />
-                            </div> : ""
+                                    <Skeleton count={1} height={200} className="mb-2" />
+                                    <Skeleton count={1} height={30} width={100} />
+                                    <Skeleton count={1} height={30} width={220} />
+                                    <Skeleton count={1} height={30} />
+                                    <Skeleton count={1} height={30} className="mb-4" />
+                                    <Skeleton count={1} height={30} width={120} />
+                                </div> : ""
                             }
                             <InView as="div" onChange={(inView) => {
                                 if (inView) {

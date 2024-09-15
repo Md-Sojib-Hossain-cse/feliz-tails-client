@@ -14,10 +14,7 @@ const DashboardNavigation = () => {
                             <NavigationMenuLink className="font-medium border-b block py-3">Home</NavigationMenuLink>
                         </NavLink>
                         <NavLink to="">
-                            <NavigationMenuLink className="font-medium border-b block py-3">Dashboard</NavigationMenuLink>
-                        </NavLink>
-                        <NavLink to="addAPet">
-                            <NavigationMenuLink className="font-medium border-b block py-3">Add a Pet</NavigationMenuLink>
+                            <NavigationMenuLink className="font-medium border-b block py-3">Add a pet</NavigationMenuLink>
                         </NavLink>
                         <NavLink to="myAddedPets">
                             <NavigationMenuLink className="font-medium border-b block py-3">My Added Pets</NavigationMenuLink>

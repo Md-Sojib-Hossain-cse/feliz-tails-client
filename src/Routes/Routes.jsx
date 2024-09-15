@@ -10,7 +10,6 @@ import PetDetails from "@/Pages/PetDetails/PetDetails";
 import Login from "@/Pages/Login/Login";
 import DonationDetails from "@/Pages/DonationDetails/DonationDetails";
 import Dashboard from "@/Layout/Dashboard";
-import UserDashboard from "@/Pages/UserDashboard/UserDashboard";
 import UserProtectedRoute from "./UserProtectedRoute/UserProtectedRoute";
 import AddAPet from "@/Pages/AddAPet/AddAPet";
 import MyAddedPets from "@/Pages/MyAddedPets/MyAddedPets";
@@ -18,6 +17,7 @@ import AdoptionRequest from "@/Pages/AdoptionRequest/AdoptionRequest";
 import CreateDonationCampaign from "@/Pages/CreateDonationCampaign/CreateDonationCampaign";
 import MyDonationCampaigns from "@/Pages/MyDonationCampaigns/MyDonationCampaigns";
 import MyDonations from "@/Pages/MyDonations/MyDonations";
+import PetUpdate from "@/Pages/PetUpdate/PetUpdate";
 
 const router = createBrowserRouter([
     {
@@ -62,15 +62,16 @@ const router = createBrowserRouter([
         children: [
             {
                 index : true,
-                element: <UserProtectedRoute>
-                    <UserDashboard></UserDashboard>
-                </UserProtectedRoute>
-            },
-            {
-                path : "addAPet",
                 element : <UserProtectedRoute>
                     <AddAPet></AddAPet>
                 </UserProtectedRoute>
+            },
+            {
+                path : "PetUpdate/:id",
+                element : <UserProtectedRoute>
+                    <PetUpdate></PetUpdate>
+                </UserProtectedRoute>,
+                loader : ({params}) => fetch(`http://localhost:5000/petDetails/${params.id}`)
             },
             {
                 path : "MyAddedPets",

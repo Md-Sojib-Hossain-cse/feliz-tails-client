@@ -54,7 +54,7 @@ const PetDetails = () => {
                         </TableRow>
                         <TableRow>
                             <TableCell className="font-normal min-w-20 w-1/2">Status</TableCell>
-                            <TableCell className="text-right min-w-20 w-1/2">{data.status}</TableCell>
+                            <TableCell className="text-right min-w-20 w-1/2">{data.adopted ? "Adopted" : "Not Adopted"}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

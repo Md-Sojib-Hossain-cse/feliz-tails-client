@@ -9,13 +9,10 @@ const Dashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
     return (
         <div className="md:flex grid grid-cols-1 md:grid-cols-4">
-            <div style={{ height: 'auto' }} className="hidden md:flex">
+            <div style={{ height: 'auto' ,  minHeight : '100vh'}} className="hidden md:flex">
                 <Sidebar collapsed={collapsed}>
                     <Menu>
                         <NavLink to="" className="font-medium">
-                            <MenuItem prefix="📊">Dashboard</MenuItem>
-                        </NavLink>
-                        <NavLink to="addAPet" className="font-medium">
                             <MenuItem prefix="➕">Add a Pet</MenuItem>
                         </NavLink>
                         <NavLink to="myAddedPets" className="font-medium">
