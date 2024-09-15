@@ -97,6 +97,7 @@ const Register = () => {
             name,
             email,
             role: "user",
+            image : photoUrl,
         }
         createUser(email, password)
             .then((result) => {

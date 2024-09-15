@@ -4,12 +4,25 @@ import { FaBars } from "react-icons/fa6";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "../CSS/activeNavLinkStyle.css";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useAuth from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
+    const { data = "", isLoading } = useQuery({
+        queryKey: ['user-role', user?.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/user/${user?.email}`)
+            return res.data;
+        }
+    })
+
     return (
         <div className="md:flex grid grid-cols-1 md:grid-cols-4">
-            <div style={{ height: 'auto' ,  minHeight : '100vh'}} className="hidden md:flex">
+            <div style={{ height: 'auto', minHeight: '100vh' }} className="hidden md:flex">
                 <Sidebar collapsed={collapsed}>
                     <Menu>
                         <NavLink to="" className="font-medium">
@@ -30,6 +43,15 @@ const Dashboard = () => {
                         <NavLink to="myDonations" className="font-medium">
                             <MenuItem prefix="🙌">My Donations</MenuItem>
                         </NavLink>
+                        {
+                            data?.role === "Admin" &&
+                            <>
+                                <div className="mt-2 border-t border-gray-600"></div>
+                                <NavLink to="users" className="font-medium">
+                                    <MenuItem prefix="👩‍👩‍👦">Users</MenuItem>
+                                </NavLink>
+                            </>
+                        }
                     </Menu>
                 </Sidebar>
             </div>

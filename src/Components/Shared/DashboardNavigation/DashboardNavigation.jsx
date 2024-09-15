@@ -2,8 +2,21 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { FaBars } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import "../../../CSS/activeNavLinkStyle.css";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useAuth from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const DashboardNavigation = () => {
+    const {user} = useAuth();
+    const axiosPublic = useAxiosPublic();
+
+    const {data = "" } = useQuery({
+        queryKey : ['user-role' , user?.email ],
+        queryFn : async() => {
+            const res = await axiosPublic.get(`/user/${user?.email}`)
+            return res.data;
+        }
+    })
     return (
         <NavigationMenu className="text-right text-sm">
             <NavigationMenuList>
@@ -31,6 +44,15 @@ const DashboardNavigation = () => {
                         <NavLink to="myDonations">
                             <NavigationMenuLink className="font-medium border-y block py-3">My Donations</NavigationMenuLink>
                         </NavLink>
+                        {
+                            data?.role === "Admin" &&
+                            <>
+                                <div className="mt-2 border-t border-gray-600"></div>
+                                <NavLink to="users">
+                                <NavigationMenuLink className="font-medium border-y block py-3">Users</NavigationMenuLink>
+                                </NavLink>
+                            </>
+                        }
                     </NavigationMenuContent>
                 </NavigationMenuItem>
             </NavigationMenuList>

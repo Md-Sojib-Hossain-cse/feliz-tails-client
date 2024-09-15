@@ -19,6 +19,8 @@ import MyDonationCampaigns from "@/Pages/MyDonationCampaigns/MyDonationCampaigns
 import MyDonations from "@/Pages/MyDonations/MyDonations";
 import PetUpdate from "@/Pages/PetUpdate/PetUpdate";
 import EditDonation from "@/Pages/EditDonation/EditDonation";
+import AdminProtectedRoute from "./AdminProtectedRoute/AdminProtectedRoute";
+import Users from "@/Pages/Users/Users";
 
 const router = createBrowserRouter([
     {
@@ -111,6 +113,13 @@ const router = createBrowserRouter([
                     <MyDonations></MyDonations>
                 </UserProtectedRoute>
             },
+            {
+                path : "users",
+                element : <AdminProtectedRoute>
+                    <Users></Users>
+                </AdminProtectedRoute>
+            },
+
         ]
     }
 ]);
