@@ -102,7 +102,8 @@ const router = createBrowserRouter([
                 path : "EditDonation/:id",
                 element : <UserProtectedRoute>
                     <EditDonation></EditDonation>
-                </UserProtectedRoute>
+                </UserProtectedRoute>,
+                loader : ({params}) => fetch(`http://localhost:5000/my-donation-campaign/${params.id}`)
             },
             {
                 path : "MyDonations",
