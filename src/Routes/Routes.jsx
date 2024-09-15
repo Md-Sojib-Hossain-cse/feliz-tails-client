@@ -18,6 +18,7 @@ import CreateDonationCampaign from "@/Pages/CreateDonationCampaign/CreateDonatio
 import MyDonationCampaigns from "@/Pages/MyDonationCampaigns/MyDonationCampaigns";
 import MyDonations from "@/Pages/MyDonations/MyDonations";
 import PetUpdate from "@/Pages/PetUpdate/PetUpdate";
+import EditDonation from "@/Pages/EditDonation/EditDonation";
 
 const router = createBrowserRouter([
     {
@@ -95,6 +96,12 @@ const router = createBrowserRouter([
                 path : "MyDonationCampaigns",
                 element : <UserProtectedRoute>
                     <MyDonationCampaigns></MyDonationCampaigns>
+                </UserProtectedRoute>
+            },
+            {
+                path : "EditDonation/:id",
+                element : <UserProtectedRoute>
+                    <EditDonation></EditDonation>
                 </UserProtectedRoute>
             },
             {

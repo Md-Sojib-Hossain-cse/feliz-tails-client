@@ -14,11 +14,12 @@ const stripePromise = loadStripe(import.meta.env.VITE_publishableKeyPaymentGatew
 
 const DonationCampaignModal = ({ campaignDetails , refetch}) => {
     const { user } = useAuth();
+    const {isPaused} = campaignDetails;
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="destructive" disabled={!user}>Donate Now</Button>
+                <Button variant="destructive" disabled={!user || isPaused === "true"}>Donate Now</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <Elements stripe={stripePromise}>
