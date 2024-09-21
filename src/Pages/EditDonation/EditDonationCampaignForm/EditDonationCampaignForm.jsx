@@ -7,18 +7,20 @@ import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
 const image_hosting_key = import.meta.env.VITE_imageHosingApiKey;
 const image_hosting_Api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const EditDonationCampaignForm = () => {
-    const {_id ,  petName , maxDonationAmount , lastDateOfDonation , shortDescription , longDescription , petImage} = useLoaderData();
+const EditDonationCampaignForm = ({previousData}) => {
+    const {_id ,  petName , maxDonationAmount , lastDateOfDonation , shortDescription , longDescription , petImage} = previousData;
     const [longDescriptionError, setLongDescriptionError] = useState(null);
     const [value, setValue] = useState(longDescription);
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic();
     const { user } = useAuth();
+    console.log(previousData)
     const onSubmit = async (data) => {
         if (!value) {
             return setLongDescriptionError(true);
@@ -46,7 +48,7 @@ const EditDonationCampaignForm = () => {
                 email: user?.email,
             }
         }
-        const response = await axiosSecure.patch(`/donation-campaign/${_id}`, petInfo)
+        const response = await axiosSecure.patch(`/edit-donation-campaign/${_id}`, petInfo)
         if (response.data.modifiedCount > 0) {
             Swal.fire({
                 position: "center",
@@ -117,5 +119,9 @@ const EditDonationCampaignForm = () => {
         </div>
     );
 };
+
+EditDonationCampaignForm.propTypes = {
+    previousData : PropTypes.object,
+}
 
 export default EditDonationCampaignForm;

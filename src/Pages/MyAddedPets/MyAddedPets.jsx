@@ -9,6 +9,7 @@ import "./MyAddedPets.css";
 import { Button } from "@/Components/ui/button";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
 
 
@@ -186,5 +187,9 @@ const MyAddedPets = () => {
         </div>
     );
 };
+
+MyAddedPets.propTypes = {
+    value : PropTypes.object,
+}
 
 export default MyAddedPets;

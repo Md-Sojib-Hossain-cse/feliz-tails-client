@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/table"
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
 
 const AllDonation = () => {
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
     const { data: allDonations = [] , refetch} = useQuery({
         queryKey: ['all-donations'],
         queryFn: async () => {
@@ -24,7 +26,7 @@ const AllDonation = () => {
     })
 
     const handleDelete = async (id) => {
-        const res = await axiosSecure.delete(`/all-donation-campaign/${id}`)
+        const res = await axiosSecure.delete(`/all-donation-campaign/${id}?userEmail=${user?.email}`)
         if (res.data.deletedCount) {
             Swal.fire({
                 position: "Center",
@@ -38,7 +40,7 @@ const AllDonation = () => {
     }
     const handlePause = async (id) => {
         const updatedDoc = {isPaused : "true"}
-        const res = await axiosSecure.patch(`/all-donation-campaign/${id}` , updatedDoc)
+        const res = await axiosSecure.patch(`/all-donation-campaign/${id}?userEmail=${user?.email}` , updatedDoc)
         if (res.data.modifiedCount) {
             Swal.fire({
                 position: "Center",
@@ -52,7 +54,7 @@ const AllDonation = () => {
     }
     const handleResume = async (id) => { 
         const updatedDoc = {isPaused : "false"}
-        const res = await axiosSecure.patch(`/all-donation-campaign/${id}` , updatedDoc)
+        const res = await axiosSecure.patch(`/all-donation-campaign/${id}?userEmail=${user?.email}` , updatedDoc)
         if (res.data.modifiedCount) {
             Swal.fire({
                 position: "Center",

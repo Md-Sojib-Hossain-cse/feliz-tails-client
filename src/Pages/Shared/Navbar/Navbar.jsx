@@ -6,11 +6,13 @@ import useAuth from "@/hooks/useAuth";
 import Swal from "sweetalert2";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@radix-ui/react-navigation-menu";
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
     const { user, loading, logOut } = useAuth();
+
     const toggleDropdown = () => {
         if (!isDropdownOpen) {
             setIsNavOpen(false);
@@ -51,13 +53,13 @@ const Navbar = () => {
 
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
-            <div className="max-w-screen-xl flex flex-wrap md:gap-8 items-center justify-between mx-auto p-4">
+            <div className="max-w-screen-xl flex md:gap-8 items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center rtl:space-x-reverse">
                     <img src="https://i.ibb.co/xhR1tDW/logo.png" className="h-8" alt="FelizTails Logo" />
                     <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Feliz<span className="text-[#F03D5E]">Tails</span></p>
                 </Link>
                 {
-                    loading ? <Skeleton count={1} height={1} width={1} circle /> : user ? <div className="flex relative items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    loading ? <Skeleton count={1} height={1} width={1} circle /> : user ? <div className="flex absolute right-4 md:right-0 md:relative items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                         <button
                             type="button"
                             className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -66,7 +68,7 @@ const Navbar = () => {
                             onClick={toggleDropdown}
                         >
                             <span className="sr-only">Open user menu</span>
-                            <img className="w-8 h-8 rounded-full object-cover" src={user?.photoURL ? user?.photoURL : "https://i.ibb.co/YjYJphk/demo-Profile-Image.png"} alt="user photo" referrerPolicy="no-referrer"/>
+                            <img className="w-8 h-8 rounded-full object-cover" src={user?.photoURL ? user?.photoURL : "https://i.ibb.co/YjYJphk/demo-Profile-Image.png"} alt="user photo" referrerPolicy="no-referrer" />
                         </button>
                         {/* Dropdown menu */}
                         {isDropdownOpen && (
@@ -83,6 +85,8 @@ const Navbar = () => {
                                         <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                             Dashboard
                                         </Link>
+                                    </li>
+                                    <li>
                                     </li>
                                     <li>
                                         <button onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
@@ -142,6 +146,33 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
+                {
+                    !user && <NavigationMenu className="text-right text-sm basis-full md:basis-0 z-10">
+                    <NavigationMenuList>
+                        <NavigationMenuItem className="md:hidden">
+                            <NavigationMenuTrigger className="p-4"><FaBars></FaBars></NavigationMenuTrigger>
+                            <NavigationMenuContent className="absolute flex flex-col bg-slate-50 dark:bg-slate-800 text-black dark:text-white shadow-lg rounded-sm w-full max-w-sm p-2 right-0">
+                                <NavLink to="/">
+                                    <NavigationMenuLink className="font-medium border-b block py-3">Home</NavigationMenuLink>
+                                </NavLink>
+                                <NavLink to="/petListing">
+                                    <NavigationMenuLink className="font-medium border-b block py-3">Pet Listing</NavigationMenuLink>
+                                </NavLink>
+                                <NavLink to="/donationCampaigns">
+                                    <NavigationMenuLink className="font-medium border-b block py-3">Donation Campaigns</NavigationMenuLink>
+                                </NavLink>
+                                {
+                                    loading ? <Skeleton count={1} height={32} width={32} circle /> : !user ? <li>
+                                        <NavLink to="/login">
+                                            <NavigationMenuLink className="font-medium border-b block py-3">Login</NavigationMenuLink>
+                                        </NavLink>
+                                    </li> : ""
+                                }
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                    </NavigationMenuList>
+                </NavigationMenu>
+                }
             </div>
         </nav>
     );

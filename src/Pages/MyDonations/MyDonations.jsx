@@ -20,7 +20,6 @@ const MyDonations = () => {
         queryKey: ['my-donations', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/my-donations/${user?.email}`)
-            console.log(res.data)
             return res.data;
         }
     })

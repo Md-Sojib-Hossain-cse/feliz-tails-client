@@ -28,7 +28,6 @@ const Register = () => {
                     email: user?.email,
                     role: "user",
                 }
-                console.log(user);
                 if (user) {
                     axiosPublic.post("/users", userData)
                         .then(() => {
@@ -62,7 +61,6 @@ const Register = () => {
                     email: user?.email,
                     role: "user",
                 }
-                console.log(user);
                 if (user) {
                     axiosPublic.post("/users", userData)
                         .then(() => {
@@ -184,7 +182,7 @@ const Register = () => {
                         <p className="text-red-600 text-sm">{errors?.password?.type === "maxLength" && <span>Password Can't be more then 20 character long*</span>}</p>
                     </div>
                     <Link to="/login" className="py-2 block"><small>Already have an account ? <span className="text-blue-600">Login</span></small></Link>
-                    {error ? <p className="text-red-600 text-sm">{error.split("(")[1].replace(")", "")}</p> : ""}
+                    {error ? <p className="text-red-600 text-sm">{error.split("(")[1]}</p> : ""}
                     <input type="submit" className="text-white bg-[#EC3562] hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#EC3562] dark:hover:bg-gray-400 dark:focus:ring-gray-400 transition delay-100" value="Submit"></input>
                 </form>
                 <div className="border border-gray-300"></div>

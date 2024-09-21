@@ -70,7 +70,7 @@ const Dashboard = () => {
                         </Link>
                         <p className="tracking-widest text-sm -mt-2 ml-5">Dashboard</p>
                     </div>
-                    <div className="basis-full">
+                    <div className="basis-full z-10">
                         <DashboardNavigation></DashboardNavigation>
                     </div>
                 </div>

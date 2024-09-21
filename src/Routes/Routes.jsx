@@ -23,6 +23,7 @@ import AdminProtectedRoute from "./AdminProtectedRoute/AdminProtectedRoute";
 import Users from "@/Pages/Users/Users";
 import AllPets from "@/Pages/AllPets/AllPets";
 import AllDonation from "@/Pages/AllDonations/AllDonation";
+import ErrorPage from "@/Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -57,7 +58,8 @@ const router = createBrowserRouter([
                 path: "/login",
                 element: <Login></Login>,
             },
-        ]
+        ],
+        errorElement : <ErrorPage></ErrorPage>
     },
     {
         path: "dashboard",
@@ -76,7 +78,7 @@ const router = createBrowserRouter([
                 element : <UserProtectedRoute>
                     <PetUpdate></PetUpdate>
                 </UserProtectedRoute>,
-                loader : ({params}) => fetch(`http://localhost:5000/petDetails/${params.id}`)
+                loader : ({params}) => fetch(`https://feliz-tails-server.vercel.app/petDetails/${params.id}`)
             },
             {
                 path : "MyAddedPets",
@@ -107,7 +109,6 @@ const router = createBrowserRouter([
                 element : <UserProtectedRoute>
                     <EditDonation></EditDonation>
                 </UserProtectedRoute>,
-                loader : ({params}) => fetch(`http://localhost:5000/my-donation-campaign/${params.id}`)
             },
             {
                 path : "MyDonations",
@@ -133,8 +134,8 @@ const router = createBrowserRouter([
                     <AllDonation></AllDonation>
                 </AdminProtectedRoute>
             },
-
-        ]
+        ],
+        errorElement : <ErrorPage></ErrorPage>
     }
 ]);
 

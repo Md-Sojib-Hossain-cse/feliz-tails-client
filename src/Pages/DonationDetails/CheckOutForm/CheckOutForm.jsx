@@ -37,7 +37,6 @@ const CheckOutForm = ({ campaignDetails , refetch}) => {
         }
         axiosSecure.post("/create-payment-intent", { donationAmount: donationAmount })
             .then(res => {
-                console.log(res.data.clientSecret)
                 setClientSecret(res.data.clientSecret)
             })
     }
@@ -58,12 +57,11 @@ const CheckOutForm = ({ campaignDetails , refetch}) => {
         })
 
         if (error) {
-            console.log('[error]', error)
-            setError(error.message)
+            setError(error?.message)
         }
         else {
-            console.log('[paymentMethod]', paymentMethod)
             setError("")
+            // console.log(paymentMethod)
         }
 
 
@@ -79,11 +77,9 @@ const CheckOutForm = ({ campaignDetails , refetch}) => {
         })
 
         if (confirmError) {
-            console.log("confirm error", confirmError)
-            setError(confirmError)
+            setError(confirmError?.message)
         }
         else {
-            console.log("payment intent", paymentIntent)
             if (paymentIntent.status === "succeeded") {
                 setTransactionId(paymentIntent.id)
                 const donationDetails = {
@@ -109,7 +105,7 @@ const CheckOutForm = ({ campaignDetails , refetch}) => {
                         navigate(`/donationCampaign/${_id}`)
                     })
                     .catch(err => {
-                        console.log(err)
+                        setError(err?.message)
                     })
             }
         }

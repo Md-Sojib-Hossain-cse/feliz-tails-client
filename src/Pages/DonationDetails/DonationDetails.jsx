@@ -28,7 +28,7 @@ const DonationDetails = () => {
     const { data: recommendedDonation = [] } = useQuery({
         queryKey: ['recommended-donation'],
         queryFn: async () => {
-            const res = await axiosPublic.get("/donation-campaign?page=1&limit=3")
+            const res = await axiosPublic.get("/donation-campaign-recommended?page=1&limit=3")
             return res.data;
         }
     })

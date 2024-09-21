@@ -23,9 +23,9 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const updateUser = ( currentUser ,name , photoUrl) =>{
+    const updateUser = (currentUser, name, photoUrl) => {
         setLoading(true);
-        return updateProfile(currentUser , {displayName : name , photoURL : photoUrl})
+        return updateProfile(currentUser, { displayName: name, photoURL: photoUrl })
     }
 
     const signIn = (email, password) => {
@@ -41,12 +41,12 @@ const AuthProvider = ({ children }) => {
     //other sign in methods 
     const googleSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth , googleProvider)
+        return signInWithPopup(auth, googleProvider)
     }
 
     const facebookSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth , facebookProvider)
+        return signInWithPopup(auth, facebookProvider)
     }
 
     //user observer
@@ -54,32 +54,32 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             const userEmail = currentUser?.email || user?.email;
-            const loggedUser = {email : userEmail};
-            setLoading(false);
+            const loggedUser = { email: userEmail };
             if (currentUser) {
-                axiosPublic.post("/jwt" , loggedUser)
+                axiosPublic.post("/jwt", loggedUser, { withCredentials: true })
                     .then(res => {
-                        console.log(res);
+                        if(res.data){
+                            setLoading(false);
+                        }
                     })
                     .catch(err => {
-                        console.log(err)
                     })
-
-            } else {
-                console.log(user);
+            }
+            else{
+                setLoading(false)
             }
         });
         return () => {
-            unsubscribe();
+            return unsubscribe();
         }
     }, [auth, axiosPublic, user])
 
     const authInfo = {
         user,
-        loading ,
+        loading,
         setLoading,
         createUser,
-        signIn , 
+        signIn,
         updateUser,
         logOut,
         googleSignIn,

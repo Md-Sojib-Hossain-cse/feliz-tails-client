@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
@@ -15,17 +16,18 @@ import Swal from "sweetalert2";
 
 const AllPets = () => {
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
     const { data: pets = [], refetch } = useQuery({
         queryKey: ['all-pets'],
         queryFn: async () => {
-            const res = await axiosSecure.get("/all-pets")
+            const res = await axiosSecure.get(`/all-pets?userEmail=${user?.email}`)
             return res.data;
         }
     })
 
     const handleMakeNotAdopted = async (id) => {
         const updatedInfo = { adopted: false };
-        const res = await axiosSecure.patch(`/pet-listing/${id}`, updatedInfo)
+        const res = await axiosSecure.patch(`/pet-listing/${id}?userEmail=${user?.email}`, updatedInfo)
         if (res.data.modifiedCount) {
             Swal.fire({
                 position: "center",
@@ -40,7 +42,7 @@ const AllPets = () => {
 
     const handleMakeAdopted = async (id) => {
         const updatedInfo = { adopted: true };
-        const res = await axiosSecure.patch(`/pet-listing/${id}`, updatedInfo)
+        const res = await axiosSecure.patch(`/pet-listing/${id}?userEmail=${user?.email}`, updatedInfo)
         if (res.data.modifiedCount) {
             Swal.fire({
                 position: "center",
@@ -62,9 +64,9 @@ const AllPets = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axiosSecure.delete(`/pet-listing/${id}`)
+                const res = await axiosSecure.delete(`/pet-listing/${id}?userEmail=${user?.email}`)
                 if (res.data.deletedCount) {
                     Swal.fire({
                         position: "center",

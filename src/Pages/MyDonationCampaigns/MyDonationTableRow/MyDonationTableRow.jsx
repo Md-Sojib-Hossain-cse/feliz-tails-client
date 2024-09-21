@@ -19,7 +19,6 @@ const MyDonationTableRow = ({ campaignData, refetch }) => {
     const tillDonated = donatedAmount || 0
     const progress = (parseInt(tillDonated) / parseInt(maxDonationAmount) * 100);
     const axiosSecure = useAxiosSecure();
-    console.log(isPaused)
 
     const handlePause = async (id) => {
         const res = await axiosSecure.patch(`/my-donation-campaign/${id}?paused=${true}`)
@@ -69,7 +68,7 @@ const MyDonationTableRow = ({ campaignData, refetch }) => {
                             <DialogTitle>Donators</DialogTitle>
                             <DialogDescription>
                                 {
-                                    donationDetails.map((donationData, index) => <p key={index} className="flex justify-between items-center"><span>{index+1}.  {donationData.donatorName}</span> <span>${donationData.amount}</span></p>)
+                                    donationDetails?.map((donationData, index) => <p key={index} className="flex justify-between items-center"><span>{index+1}.  {donationData.donatorName}</span> <span>${donationData.amount}</span></p>)
                                 }
                             </DialogDescription>
                         </DialogHeader>

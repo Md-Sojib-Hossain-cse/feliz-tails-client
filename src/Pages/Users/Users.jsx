@@ -11,19 +11,21 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "@/hooks/useAuth";
 
 const Users = () => {
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosSecure.get("/users")
+            const res = await axiosSecure.get(`/users?userEmail=${user?.email}`)
             return res.data;
         }
     })
 
     const makeAdmin = async (id) => {
-        const res = await axiosSecure.patch(`/users/${id}`)
+        const res = await axiosSecure.patch(`/users/${id}?userEmail=${user?.email}`)
         if (res.data.modifiedCount) {
             Swal.fire({
                 position: "center",
