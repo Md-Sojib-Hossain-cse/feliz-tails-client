@@ -12,6 +12,11 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react-select','react-quill']
+    include: ['react-select', 'react-quill']
+  },
+  externals: {
+    canvg: "canvg",
+    html2canvas: "html2canvas",
+    dompurify: "dompurify"
   }
 })

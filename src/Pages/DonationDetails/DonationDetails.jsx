@@ -11,13 +11,16 @@ import {
 } from "@/components/ui/table";
 import DonationCampaignModal from "./DonationCampaignModal/DonationCampaignModal";
 import DonationCampaignCard from "../DonationCampaigns/DonationCampaignCard.jsx/DonationCampaignCard";
+import { Button } from "@/Components/ui/button";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 
 const DonationDetails = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
 
-    const { data = {} , refetch} = useQuery({
+    const { data = {}, refetch , isLoading} = useQuery({
         queryKey: ["donation-campaign"],
         queryFn: async () => {
             const res = await axiosPublic.get(`/donation-campaign/${id}`);
@@ -33,11 +36,21 @@ const DonationDetails = () => {
         }
     })
 
+    const handlePDFDownload = async () => {
+        const doc = new jsPDF();
+
+        const imageData =await html2canvas(document.querySelector("#petDetails"))
+
+
+        doc.addImage(imageData , "JPEG" , 15 , 15, 180, 60);
+        doc.save(`${data?.petName}.pdf`);
+    }
+
     return (
         <section className="my-6 md:my-8 lg:my-12 xl:my-16 px-4 md:px-6 lg:px-12 xl:px-24">
             <img src={data?.petImage} alt="" className="w-60 h-60 object-cover rounded-full mx-auto border-2 border-gray-100" />
             <div className="mt-6 md:mt-8">
-                <Table>
+                <Table id="petDetails">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="min-w-20 w-1/2">Pet Name</TableHead>
@@ -63,7 +76,8 @@ const DonationDetails = () => {
                         </TableRow>
                     </TableBody>
                 </Table>
-                <div className="flex justify-end items-center py-4 lg:py-6">
+                <div className="flex justify-end items-center py-4 lg:py-6 gap-3">
+                    <Button disable={isLoading} onClick={handlePDFDownload} variant="destructive">Download Details</Button>
                     <DonationCampaignModal key={data?._id} campaignDetails={data} refetch={refetch}></DonationCampaignModal>
                 </div>
             </div>
