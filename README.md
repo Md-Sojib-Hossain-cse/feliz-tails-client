@@ -66,12 +66,17 @@ npm run dev
 
 ## 🌐 Deployment
 
+Live Link : https://feliz-tails.web.app/
+
 Deployed via Vercel
 
 Configure environment variables in the Vercel dashboard.
 
 
 ## 🧑 Author
+
 MD SOJIB HOSSAIN
+
 📧 Email: sojibhossain.cse@gmail.com
+
 🎓 Dhaka Polytechnic Institute
